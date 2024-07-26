@@ -1,175 +1,78 @@
-
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>el dos</title>
+    <title>Video Miniplayer</title>
     <style>
-        body {
+        .hidden {
+            display: none;
+        }
+
+        #buttonContainer {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            overflow-x: auto;
-            font-family: 'Helvetica', 'neue', sans-serif;
-        }
-
-        #titolo {
-            font-size: 40px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        #container {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .casella {
-            width: 50.4px;
-            height: 50.4px;
-            text-align: center;
-            font-size: 24px;
-            border: 1px solid #000;
-            margin: 4px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            caret-color: transparent;
-        }
-
-        .contenitore {
-            width: 310px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-content: center;
-            margin-bottom: 20px;
-        }
-
-        .inviabutton {
-            background-color: #787c7e; /* colore di wordle */
-            color: white; /* Cambia il colore del testo a tuo piacimento */
-            padding: 10px 20px; /* Imposta il padding a tuo piacimento */
-            font-size: 16px; /* Imposta la dimensione del carattere a tuo piacimento */
-            cursor: pointer;
-            border: none;
             margin-top: 20px;
         }
 
-        .button-container {
-            display: flex;
-            justify-content: center;
+        .playButton {
+            font-size: 20px;
+            padding: 15px 30px;
+            margin: 10px 0;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+        }
+
+        .playButton:hover {
+            background-color: #0056b3;
+        }
+
+        #miniplayer {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            width: 300px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        #videoPlayer {
             width: 100%;
         }
     </style>
 </head>
 <body>
-    <div id="titolo">LIVELLO 2/100</div>
-    <div id="container">
-        <font size="+2">I am loud and obnoxious, I like music and rhyme, I’m only a fraction of the population but equate for half of the crime. Who am I?</font>
+    <div id="buttonContainer">
+        <button class="playButton" data-video="video1.mp4">Play Video 1</button>
+        <button class="playButton" data-video="video2.mp4">Play Video 2</button>
+        <button class="playButton" data-video="video3.mp4">Play Video 3</button>
     </div>
-    <div class="contenitore" id="container2"></div>
-    <div class="button-container">
-        <button type="submit" class="inviabutton" onclick="rimanda()">INVIA</button>
+
+    <div id="miniplayer" class="hidden">
+        <video id="videoPlayer" controls>
+            <source id="videoSource" src="" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
     </div>
 
     <script>
-        function mostra(){
-            aiuto.style.display = "block";
-        }
-        function nascondi(){
-            aiuto.style.display = "none";
-        }
-        
-        
-        crea();
-     
-        
-        // Funzione per limitare il contenuto di una casella a una sola lettera e convertire in maiuscolo
-        function limitaTesto(casella) {
-            let testo = casella.textContent;
-            if (testo.length > 1) {
-                testo = testo.charAt(0);
-            }
-            if (testo.toLowerCase() != testo.toUpperCase()){
-                casella.textContent = testo.toUpperCase();
-                passaAllaCasellaSuccessiva(casella)
-            } else {casella.textContent =""}
-        }
-        
-        function passaAllaCasellaSuccessiva(casella) {
-            const caselle = document.querySelectorAll(".casella");
-            const index = Array.from(caselle).indexOf(casella);
-            if (index < 4) {
-                caselle[index + 1].focus();
-            } else {
-                casella.blur(); // Rimuove il focus se siamo sull'ultima casella
-            }
-        }
-        
-        function passaAllaCasellaPrecedente(casella) {
-            const caselle = document.querySelectorAll(".casella");
-            const index = Array.from(caselle).indexOf(casella);
-            if (index > 0) {
-                caselle[index - 1].focus();
-                caselle[index - 1].setSelectionRange(1,1);
-            }
-        }
-        
-        function cancella(casella) {
-            const caselle = document.querySelectorAll(".casella");
-            const index = Array.from(caselle).indexOf(casella);
-            if (casella.textContent =="" && index > 0) {
-                caselle[index - 1].textContent ="";
-                passaAllaCasellaPrecedente(casella);}
-            else{casella.textContent ="";}
-        }
-    
-        
-        function crea(){
-            container2.style.width = "372px";
-            document.getElementById("container2").innerHTML="";
-            for (var i = 0; i < 5; i++) {
-              var casella = document.createElement("div");
-              casella.className = "casella";
-              casella.contentEditable = true;
-              casella.addEventListener("input", function() {
-                limitaTesto(this);
-              });
-              casella.addEventListener("keydown", function(event) {
-                if (event.key === "ArrowLeft") {
-                    passaAllaCasellaPrecedente(this);
-                }
-              });
-              casella.addEventListener("keydown", function(event) {
-                if (event.key === "ArrowRight") {
-                    passaAllaCasellaSuccessiva(this);
-                }
-              });
-              casella.addEventListener("keydown", function(event) {
-                if (event.key === "Backspace") {
-                    cancella(this);
-                }
-              });
-              container2.appendChild(casella);
-            }
-	    var casella = document.createElement("div");
-            casella.className = "casella";
-            casella.contentEditable = false;
-	    casella.textContent = "R";
-	    container2.appendChild(casella);
-        }
-        
+        document.querySelectorAll('.playButton').forEach(button => {
+            button.addEventListener('click', function() {
+                var miniplayer = document.getElementById('miniplayer');
+                var videoPlayer = document.getElementById('videoPlayer');
+                var videoSource = document.getElementById('videoSource');
 
-	    function rimanda(){
-		    window.location.href = "swing.html";
-	    }
-        
-        
+                videoSource.src = this.getAttribute('data-video');
+                videoPlayer.load();
+                miniplayer.classList.remove('hidden');
+                videoPlayer.play();
+            });
+        });
     </script>
 </body>
 </html>
