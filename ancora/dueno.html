@@ -63,16 +63,19 @@
             clear: both;
         }
         
-        .inviabutton {
-            background-color: #787c7e; /* colore di wordle */
-            color: white; /* Cambia il colore del testo a tuo piacimento */
-            margin-top: 20px;
-            padding: 10px 20px; /* Imposta il padding a tuo piacimento */
-            font-size: 16px; /* Imposta la dimensione del carattere a tuo piacimento */
+              .inviabutton {
+            background-color: #787c7e; 
+            color: white;
+            padding: 10px 20px; 
+            font-size: 16px; 
             cursor: pointer;
+            border: none;
         }
-        
-        
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+        }
     </style>
 </head>
 <body>
@@ -81,7 +84,9 @@
         <font size="+2">I am loud and obnoxious, I like music and rhyme, I’m only a fraction of the population but equate for half of the crime. Who am I?</font>
     </div>
     <div class="contenitore" id="container2"></div>
-    <button type="submit" class="inviabutton" onclick="rimanda()">INVIA</button>
+    <div class="button-container">
+        <button type="submit" class="inviabutton" onclick="rimanda()">INVIA</button>
+    </div>
     <script>
         function mostra(){
             aiuto.style.display = "block";
@@ -136,7 +141,7 @@
     
         
         function crea(){
-            container2.style.width = 372 + "px";
+            container2.style.width = "372px";
             document.getElementById("container2").innerHTML="";
             for (var i = 0; i < 5; i++) {
               var casella = document.createElement("div");
