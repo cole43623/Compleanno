@@ -150,7 +150,7 @@
         function passaAllaCasellaSuccessiva(casella) {
             const caselle = document.querySelectorAll(".casella");
             const index = Array.from(caselle).indexOf(casella);
-            if (index < caselle.length - 1) {
+            if (index < 4) {
                 caselle[index + 1].focus();
             } else {
                 casella.blur(); // Rimuove il focus se siamo sull'ultima casella
@@ -177,9 +177,9 @@
     
         
         function crea(){
-            container2.style.width = slider.value*62 + "px";
+            container2.style.width = 372 + "px";
             document.getElementById("container2").innerHTML="";
-            for (var i = 0; i < 6; i++) {
+            for (var i = 0; i < 5; i++) {
               var casella = document.createElement("div");
               casella.className = "casella";
               casella.contentEditable = true;
@@ -206,6 +206,10 @@
               });
               container2.appendChild(casella);
             }
+	    var casella = document.createElement("div");
+            casella.className = "casella";
+            casella.contentEditable = false;
+	    container2.appendChild(casella);
         }
         
         
