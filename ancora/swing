@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Miniplayer</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+
+        #miniplayer {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            width: 300px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        #videoPlayer {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <button class="playButton" data-video="video1.mp4">Play Video 1</button>
+    <button class="playButton" data-video="video2.mp4">Play Video 2</button>
+    <button class="playButton" data-video="video3.mp4">Play Video 3</button>
+
+    <div id="miniplayer" class="hidden">
+        <video id="videoPlayer" controls>
+            <source id="videoSource" src="" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <script>
+        document.querySelectorAll('.playButton').forEach(button => {
+            button.addEventListener('click', function() {
+                var miniplayer = document.getElementById('miniplayer');
+                var videoPlayer = document.getElementById('videoPlayer');
+                var videoSource = document.getElementById('videoSource');
+
+                videoSource.src = this.getAttribute('data-video');
+                videoPlayer.load();
+                miniplayer.classList.remove('hidden');
+                videoPlayer.play();
+            });
+        });
+    </script>
+</body>
+</html>
