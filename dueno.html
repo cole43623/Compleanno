@@ -95,45 +95,8 @@
         }
         
         
-        
-        
-        for (var i = 0; i < 6; i++) {
-              var casella = document.createElement("div");
-              casella.className = "casella";
-              casella.contentEditable = true;
-              casella.addEventListener("input", function() {
-                limitaTesto(this);
-              });
-              
-              casella.addEventListener("keydown", function(event) {
-                if (event.key === "ArrowLeft") {
-                    passaAllaCasellaPrecedente(this);
-                }
-              });
-              casella.addEventListener("keydown", function(event) {
-                if (event.key === "ArrowRight") {
-                    passaAllaCasellaSuccessiva(this);
-                }
-              });
-              casella.addEventListener("keydown", function(event) {
-                if (event.key === "Backspace") {
-                    cancella(this);
-                }
-              });
-              container2.appendChild(casella);
-        }
-        const casell = document.querySelector(".casella");
-        casell.focus()
-    
-        const slider = document.getElementById("lunghezzaParola");
-        const valoreOutput = document.getElementById("lunghezzaValore");
-
-        slider.addEventListener("input", function () {
-            valoreOutput.textContent = slider.value;
-            crea();
-        });
-        
-        
+        crea();
+     
         
         // Funzione per limitare il contenuto di una casella a una sola lettera e convertire in maiuscolo
         function limitaTesto(casella) {
