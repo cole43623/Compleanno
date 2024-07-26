@@ -6,34 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Risolutore Wordle</title>
     <style>
-        
         body {
             display: flex;
+            flex-direction: column;
+            align-items: center;
             justify-content: center;
-            height: 125vh;
+            height: 100vh;
             margin: 0;
-			overflow-x: auto;
-        }
-        
-        #titolo{
-            position: absolute;
-            top: 10%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            font-size: 40px;
+            overflow-x: auto;
             font-family: 'Helvetica', 'neue', sans-serif;
-            text-align: center;
-        }
-        
-        #container {
-            position: absolute;
-            text-align: center;
-            top: 20%;
         }
 
-    
-        /* Stili CSS per le caselle */
+        #titolo {
+            font-size: 40px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
         .casella {
             width: 50.4px;
             height: 50.4px;
@@ -45,36 +39,31 @@
             justify-content: center;
             align-items: center;
             caret-color: transparent;
-            font-family: 'Helvetica', 'neue', sans-serif;
         }
-        /* Stili CSS per il contenitore delle caselle */
+
         .contenitore {
             width: 310px;
-            margin: 0 auto; /* Centro orizzontalmente */
             display: flex;
             flex-wrap: wrap;
-            justify-content: center; /* Centro verticalmente */
-            align-content: center; /* Centro verticalmente */
+            justify-content: center;
+            align-content: center;
+            margin-bottom: 20px;
         }
-        /* Clear float per il contenitore delle caselle */
-        .contenitore::after {
-            content: "";
-            display: table;
-            clear: both;
-        }
-        
-              .inviabutton {
-            background-color: #787c7e; 
-            color: white;
-            padding: 10px 20px; 
-            font-size: 16px; 
+
+        .inviabutton {
+            background-color: #787c7e; /* colore di wordle */
+            color: white; /* Cambia il colore del testo a tuo piacimento */
+            padding: 10px 20px; /* Imposta il padding a tuo piacimento */
+            font-size: 16px; /* Imposta la dimensione del carattere a tuo piacimento */
             cursor: pointer;
             border: none;
+            margin-top: 20px;
         }
 
         .button-container {
             display: flex;
             justify-content: center;
+            width: 100%;
         }
     </style>
 </head>
@@ -87,6 +76,7 @@
     <div class="button-container">
         <button type="submit" class="inviabutton" onclick="rimanda()">INVIA</button>
     </div>
+
     <script>
         function mostra(){
             aiuto.style.display = "block";
