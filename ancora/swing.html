@@ -9,6 +9,28 @@
             display: none;
         }
 
+        #buttonContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .playButton {
+            font-size: 20px;
+            padding: 15px 30px;
+            margin: 10px 0;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+        }
+
+        .playButton:hover {
+            background-color: #0056b3;
+        }
+
         #miniplayer {
             position: fixed;
             bottom: 10px;
@@ -25,9 +47,11 @@
     </style>
 </head>
 <body>
-    <button class="playButton" data-video="video1.mp4">Play Video 1</button>
-    <button class="playButton" data-video="video2.mp4">Play Video 2</button>
-    <button class="playButton" data-video="video3.mp4">Play Video 3</button>
+    <div id="buttonContainer">
+        <button class="Francesco" data-video="SnapTik_App_7062754939176488198-HD.mov">Play Video 1</button>
+        <button class="Gianmarco" data-video="Y2meta.app-POV_ Blur ti fa gli auguri di compleanno-(1080p60).mov">Play Video 2</button>
+        <button class="Marcello" data-video="maccio.mp4">Play Video 3</button>
+    </div>
 
     <div id="miniplayer" class="hidden">
         <video id="videoPlayer" controls>
