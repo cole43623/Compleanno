@@ -1,1 +1,190 @@
 
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risolutore Wordle</title>
+    <style>
+        
+        body {
+            display: flex;
+            justify-content: center;
+            height: 125vh;
+            margin: 0;
+			overflow-x: auto;
+        }
+        
+        #titolo{
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            font-size: 40px;
+            font-family: 'Helvetica', 'neue', sans-serif;
+            text-align: center;
+        }
+        
+        #container {
+            position: absolute;
+            text-align: center;
+            top: 20%;
+        }
+
+    
+        /* Stili CSS per le caselle */
+        .casella {
+            width: 50.4px;
+            height: 50.4px;
+            text-align: center;
+            font-size: 24px;
+            border: 1px solid #000;
+            margin: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            caret-color: transparent;
+            font-family: 'Helvetica', 'neue', sans-serif;
+        }
+        /* Stili CSS per il contenitore delle caselle */
+        .contenitore {
+            width: 310px;
+            margin: 0 auto; /* Centro orizzontalmente */
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center; /* Centro verticalmente */
+            align-content: center; /* Centro verticalmente */
+        }
+        /* Clear float per il contenitore delle caselle */
+        .contenitore::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        
+        .inviabutton {
+            background-color: #787c7e; /* colore di wordle */
+            color: white; /* Cambia il colore del testo a tuo piacimento */
+            margin-top: 20px;
+            padding: 10px 20px; /* Imposta il padding a tuo piacimento */
+            font-size: 16px; /* Imposta la dimensione del carattere a tuo piacimento */
+            cursor: pointer;
+        }
+        
+        
+    </style>
+</head>
+<body>
+    <div id="titolo">LIVELLO 2/100</div>
+    <div id="container">
+        <font size="+2">I am loud and obnoxious, I like music and rhyme, I’m only a fraction of the population but equate for half of the crime. Who am I?</font>
+        </div>
+        <div class="contenitore" id="container2">
+        </div>
+        <button type="submit" class="inviabutton" onclick="rimanda()">INVIA</button>
+        </div>
+    </div>
+
+
+    <script>
+        function mostra(){
+            aiuto.style.display = "block";
+        }
+        function nascondi(){
+            aiuto.style.display = "none";
+        }
+        
+        
+        crea();
+     
+        
+        // Funzione per limitare il contenuto di una casella a una sola lettera e convertire in maiuscolo
+        function limitaTesto(casella) {
+            let testo = casella.textContent;
+            if (testo.length > 1) {
+                testo = testo.charAt(0);
+            }
+            if (testo.toLowerCase() != testo.toUpperCase()){
+                casella.textContent = testo.toUpperCase();
+                passaAllaCasellaSuccessiva(casella)
+            } else {casella.textContent =""}
+        }
+        
+        function passaAllaCasellaSuccessiva(casella) {
+            const caselle = document.querySelectorAll(".casella");
+            const index = Array.from(caselle).indexOf(casella);
+            if (index < 4) {
+                caselle[index + 1].focus();
+            } else {
+                casella.blur(); // Rimuove il focus se siamo sull'ultima casella
+            }
+        }
+        
+        function passaAllaCasellaPrecedente(casella) {
+            const caselle = document.querySelectorAll(".casella");
+            const index = Array.from(caselle).indexOf(casella);
+            if (index > 0) {
+                caselle[index - 1].focus();
+                caselle[index - 1].setSelectionRange(1,1);
+            }
+        }
+        
+        function cancella(casella) {
+            const caselle = document.querySelectorAll(".casella");
+            const index = Array.from(caselle).indexOf(casella);
+            if (casella.textContent =="" && index > 0) {
+                caselle[index - 1].textContent ="";
+                passaAllaCasellaPrecedente(casella);}
+            else{casella.textContent ="";}
+        }
+    
+        
+        function crea(){
+            container2.style.width = 372 + "px";
+            document.getElementById("container2").innerHTML="";
+            for (var i = 0; i < 5; i++) {
+              var casella = document.createElement("div");
+              casella.className = "casella";
+              casella.contentEditable = true;
+              casella.addEventListener("input", function() {
+                limitaTesto(this);
+              });
+              casella.addEventListener("keydown", function(event) {
+                if (event.key === "ArrowLeft") {
+                    passaAllaCasellaPrecedente(this);
+                }
+              });
+              casella.addEventListener("keydown", function(event) {
+                if (event.key === "ArrowRight") {
+                    passaAllaCasellaSuccessiva(this);
+                }
+              });
+              casella.addEventListener("keydown", function(event) {
+                if (event.key === "Backspace") {
+                    cancella(this);
+                }
+              });
+              container2.appendChild(casella);
+            }
+	    var casella = document.createElement("div");
+            casella.className = "casella";
+            casella.contentEditable = false;
+	    casella.textContent = "R";
+	    container2.appendChild(casella);
+        }
+        
+        
+        function count(parola,lettera) {
+            let contatore = 0;
+            for (let i = 0; i < parola.length; i++) {
+                if (parola[i] === lettera) {contatore++;}
+            }
+            return contatore;
+        }
+        
+        
+        
+    </script>
+</body>
+</html>
